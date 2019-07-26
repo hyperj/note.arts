@@ -18,4 +18,22 @@
     
     清理资源及文件
 
+**build**
+
+- code -> transformations List
+- StreamGraphGenerator -> StreamGraph
+- StreamingJobGraphGenerator -> JobGraph
+- ExecutionGraphBuilder -> ExecutionGraph
+
+**resource**
+
+- 查找已分配 slot 是否符合条件
+- 查找 slotPool 是否有空闲的
+- 向 RM 组件申请 slot，向 YARN 的 RM 申请 container
+- YARN 初始化 container，通知 container 申请成功
+- 部署 TM ，向 RM 注册
+- RM 向 TM 申请 slot
+- TM 向 JM 注册，并提供 slot
+- JM 向 TM 的 slot 部署 task
+
 ## Reference
