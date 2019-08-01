@@ -132,20 +132,20 @@
         rulesWithoutInferFiltersFromConstraints: _*) :: Nil
     }
 
-    (Batch("Eliminate Distinct", Once, EliminateDistinct) ::
+    (Batch("Eliminate Distinct", Once, EliminateDistinct) :: // 消除聚合中冗余的 Distinct
     // Technically some of the rules in Finish Analysis are not optimizer rules and belong more
     // in the analyzer, because they are needed for correctness (e.g. ComputeCurrentTime).
     // However, because we also use the analyzer to canonicalized queries (for view definition),
     // we do not eliminate subqueries or compute current time in the analyzer.
     Batch("Finish Analysis", Once,
-      EliminateResolvedHint,
-      EliminateSubqueryAliases,
-      EliminateView,
-      ReplaceExpressions,
-      ComputeCurrentTime,
-      GetCurrentDatabase(sessionCatalog),
-      RewriteDistinctAggregates,
-      ReplaceDeduplicateWithAggregate) ::
+      EliminateResolvedHint, // 通过 Join 改写 Hint
+      EliminateSubqueryAliases, // 消除 子查询别名
+      EliminateView, // 消除 视图
+      ReplaceExpressions, // 替换、改写 表达式
+      ComputeCurrentTime, // 计算当前日期或时间
+      GetCurrentDatabase(sessionCatalog), // 替换当前的数据库
+      RewriteDistinctAggregates, // Distinct 优化改写
+      ReplaceDeduplicateWithAggregate) :: // 通过聚合优化删除重复数据算子
     //////////////////////////////////////////////////////////////////////////////////////////
     // Optimizer rules start here
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -155,59 +155,59 @@
     // - Call CombineUnions again in Batch("Operator Optimizations"),
     //   since the other rules might make two separate Unions operators adjacent.
     Batch("Union", Once,
-      CombineUnions) ::
+      CombineUnions) :: // 合并相邻的 Union
     Batch("OptimizeLimitZero", Once,
-      OptimizeLimitZero) ::
+      OptimizeLimitZero) :: // 优化 limit 0
     // Run this once earlier. This might simplify the plan and reduce cost of optimizer.
     // For example, a query such as Filter(LocalRelation) would go through all the heavy
     // optimizer rules that are triggered when there is a filter
     // (e.g. InferFiltersFromConstraints). If we run this batch earlier, the query becomes just
     // LocalRelation and does not trigger many rules.
     Batch("LocalRelation early", fixedPoint,
-      ConvertToLocalRelation,
-      PropagateEmptyRelation) ::
+      ConvertToLocalRelation, // 优化 LocalRelation
+      PropagateEmptyRelation) :: // 优化 EmptyRelation
     Batch("Pullup Correlated Expressions", Once,
-      PullupCorrelatedPredicates) ::
+      PullupCorrelatedPredicates) :: // 处理引用外部谓词
     Batch("Subquery", Once,
-      OptimizeSubqueries) ::
+      OptimizeSubqueries) :: // 优化 子查询，去除不必要排序
     Batch("Replace Operators", fixedPoint,
-      RewriteExceptAll,
-      RewriteIntersectAll,
-      ReplaceIntersectWithSemiJoin,
-      ReplaceExceptWithFilter,
-      ReplaceExceptWithAntiJoin,
-      ReplaceDistinctWithAggregate) ::
+      RewriteExceptAll, // 重写 Except All
+      RewriteIntersectAll, // 重写 Intersect All
+      ReplaceIntersectWithSemiJoin, // 使用 Semi Join，重写 Intersect
+      ReplaceExceptWithFilter, // 使用 Filter，重写 Except
+      ReplaceExceptWithAntiJoin, // 使用 Anti Join，重写 Except
+      ReplaceDistinctWithAggregate) :: // 使用 Aggregate，重写 Distinct
     Batch("Aggregate", fixedPoint,
-      RemoveLiteralFromGroupExpressions,
-      RemoveRepetitionFromGroupExpressions) :: Nil ++
+      RemoveLiteralFromGroupExpressions, // 删除聚合表达式的字面量
+      RemoveRepetitionFromGroupExpressions) :: Nil ++ // 删除聚合表达式的重复信息
     operatorOptimizationBatch) :+
     Batch("Join Reorder", Once,
-      CostBasedJoinReorder) :+
+      CostBasedJoinReorder) :+ // 基于损失的 Join 重排
     Batch("Remove Redundant Sorts", Once,
-      RemoveRedundantSorts) :+
+      RemoveRedundantSorts) :+ // 删除冗余的排序
     Batch("Decimal Optimizations", fixedPoint,
-      DecimalAggregates) :+
+      DecimalAggregates) :+ // Decimal 类型聚合优化
     Batch("Object Expressions Optimization", fixedPoint,
-      EliminateMapObjects,
-      CombineTypedFilters,
-      ObjectSerializerPruning,
-      ReassignLambdaVariableID) :+
+      EliminateMapObjects, // 消除 MapObject
+      CombineTypedFilters, // 合并相邻的类型过滤
+      ObjectSerializerPruning, // 裁剪不必要的序列化
+      ReassignLambdaVariableID) :+ // 重新分类 LambdaVariable ID，利于 codegen 优化
     Batch("LocalRelation", fixedPoint,
-      ConvertToLocalRelation,
-      PropagateEmptyRelation) :+
+      ConvertToLocalRelation, // 优化 LocalRelation
+      PropagateEmptyRelation) :+ // 优化 EmptyRelation
     Batch("Extract PythonUDF From JoinCondition", Once,
-      PullOutPythonUDFInJoinCondition) :+
+      PullOutPythonUDFInJoinCondition) :+ // 标识 Join 中的 PythonUDF
     // The following batch should be executed after batch "Join Reorder" "LocalRelation" and
     // "Extract PythonUDF From JoinCondition".
     Batch("Check Cartesian Products", Once,
-      CheckCartesianProducts) :+
+      CheckCartesianProducts) :+ // 检测 笛卡尔积 约束条件
     Batch("RewriteSubquery", Once,
-      RewritePredicateSubquery,
-      ColumnPruning,
-      CollapseProject,
-      RemoveNoopOperators) :+
+      RewritePredicateSubquery, // 重写 子查询，EXISTS/NOT EXISTS、IN/NOT IN
+      ColumnPruning, // 裁剪列
+      CollapseProject, // 合并投影
+      RemoveNoopOperators) :+ // 删除无用的操作符
     // This batch must be executed after the `RewriteSubquery` batch, which creates joins.
-    Batch("NormalizeFloatingNumbers", Once, NormalizeFloatingNumbers)
+    Batch("NormalizeFloatingNumbers", Once, NormalizeFloatingNumbers) // 规范 Float 类型数值
   }
 ```
 
