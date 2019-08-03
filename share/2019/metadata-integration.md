@@ -9,10 +9,10 @@
 
 **机制**
 
-- Hook 机制
+- Hook & Bridge 机制
 - Metrics 机制
 - 中间件、网关、工具链
-- 拉取，同步
+- 拉取，推送、同步
 - 实时、离线
 
 ## HDFS
@@ -42,6 +42,8 @@
 
 ## ElasticSearch
 
+- 通过 [REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html) 方式
+
 ## MySQL
 
 - 通过 Canal 进行 binlog 增量订阅&消费
@@ -52,7 +54,13 @@
 - Redis
 - TiDB
 - Tair
+- YARN
+- Spark
+- Flink
+- Oozie
 
 ## Reference
 
+- [Apache Atlas](https://atlas.apache.org/index.html)
+- [Navigator Metadata Server Management](https://www.cloudera.com/documentation/enterprise/latest/topics/cn_admcfg_nms_intro.html)
 - [How to write a Hive Hook](http://dharmeshkakadia.github.io/hive-hook/)
