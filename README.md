@@ -6,6 +6,7 @@ Mark. 20190613 - HyperJ
 
 | Month | 01 | 02 | 03 | 04 | 05 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
+| August | [Week 8-1](week/2019/0804.md) | [Week 8-2](week/2019/0811.md) | -- | -- | -- |
 | July | [Week 7-1](week/2019/0707.md) | [Week 7-2](week/2019/0714.md) | [Week 7-3](week/2019/0721.md) | [Week 7-4](week/2019/0728.md) | -- |
 | June | -- | [Week 6-2](week/2019/0609.md) | [Week 6-3](week/2019/0616.md) | [Week 6-4](week/2019/0623.md) | [Week 6-5](week/2019/0630.md) |
 
