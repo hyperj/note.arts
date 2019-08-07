@@ -12,7 +12,8 @@
 - Hook & Bridge 机制
 - Metrics 机制
 - 中间件、网关、工具链
-- 拉取，推送、同步
+- 拉取、推送
+- 增量、全量
 - 实时、离线
 
 ## HDFS
@@ -22,11 +23,11 @@
 
 ## Hive
 
-- Hive 提供的 [Hook](https://github.com/apache/hive/blob/master/ql/src/java/org/apache/hadoop/hive/ql/hooks/Hook.java) 机制
+- 增量：Hive 提供的 [Hook](https://github.com/apache/hive/blob/master/ql/src/java/org/apache/hadoop/hive/ql/hooks/Hook.java) 机制
 
 ## HBase
 
-- HBase 提供的 [Coprocessor](https://blogs.apache.org/hbase/entry/coprocessor_introduction) 机制
+- 增量：HBase 提供的 [Coprocessor](https://blogs.apache.org/hbase/entry/coprocessor_introduction) 机制
 
 ## Kafka
 
