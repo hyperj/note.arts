@@ -59,6 +59,7 @@
 - Spark
 - Flink
 - Oozie
+- ZooKeeper
 
 ## Reference
 
