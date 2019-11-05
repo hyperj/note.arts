@@ -1,0 +1,702 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ARTS 打卡记录">
+      
+      
+        <link rel="canonical" href="https://hyperj.net/note.arts/share/2019/spark-sql-rules/">
+      
+      
+        <meta name="author" content="HyperJ">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="/assets/images/hyperj.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Spark SQL 规则 - ARTS 打卡记录</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="/assets/css/mkdocs/material.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="amber">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#spark-sql" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://hyperj.net/note.arts" title="ARTS 打卡记录" class="md-header-nav__button md-logo">
+          
+            <img src="/assets/images/hyperj.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              ARTS 打卡记录
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Spark SQL 规则
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/hyperj/note.arts/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    hyperj/note.arts
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." title="首页" class="md-tabs__link md-tabs__link--active">
+        首页
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../" title="Share" class="md-tabs__link">
+          Share
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../week/2019/" title="Week" class="md-tabs__link">
+          Week
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://hyperj.net/note.arts" title="ARTS 打卡记录" class="md-nav__button md-logo">
+      
+        <img src="/assets/images/hyperj.png" width="48" height="48">
+      
+    </a>
+    ARTS 打卡记录
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/hyperj/note.arts/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    hyperj/note.arts
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Share
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Share
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="2019" class="md-nav__link">
+      2019
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Week
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Week
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../week/2019/" title="2019" class="md-nav__link">
+      2019
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#analyzer" title="Analyzer" class="md-nav__link">
+    Analyzer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizer" title="Optimizer" class="md-nav__link">
+    Optimizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sparkplan" title="SparkPlan" class="md-nav__link">
+    SparkPlan
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sparkstrategy" title="SparkStrategy" class="md-nav__link">
+    SparkStrategy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" title="Reference" class="md-nav__link">
+    Reference
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/hyperj/note.arts/blob/master/docs/share/2019/spark-sql-rules.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="spark-sql">Spark SQL 规则<a class="headerlink" href="#spark-sql" title="Permanent link">&para;</a></h1>
+<h2 id="analyzer">Analyzer<a class="headerlink" href="#analyzer" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span> <span class="k">lazy</span> <span class="k">val</span> <span class="n">batches</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Batch</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Hints&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="k">new</span> <span class="nc">ResolveHints</span><span class="o">.</span><span class="nc">ResolveJoinStrategyHints</span><span class="o">(</span><span class="n">conf</span><span class="o">),</span> <span class="c1">// BROADCAST、SHUFFLE_MERGE、SHUFFLE_HASH、SHUFFLE_REPLICATE_NL</span>
+      <span class="nc">ResolveHints</span><span class="o">.</span><span class="nc">ResolveCoalesceHints</span><span class="o">,</span> <span class="c1">// COALESCE、REPARTITION</span>
+      <span class="k">new</span> <span class="nc">ResolveHints</span><span class="o">.</span><span class="nc">RemoveAllHints</span><span class="o">(</span><span class="n">conf</span><span class="o">)),</span> <span class="c1">// 移除无效 Hint</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Simple Sanity Check&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">LookupFunctions</span><span class="o">),</span> <span class="c1">// 检查 Function 是否存在</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Substitution&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">CTESubstitution</span><span class="o">,</span> <span class="c1">// CTE 替换</span>
+      <span class="nc">WindowsSubstitution</span><span class="o">,</span> <span class="c1">// Window 替换</span>
+      <span class="nc">EliminateUnions</span><span class="o">,</span> <span class="c1">// 消除 Union（只有一个时）</span>
+      <span class="k">new</span> <span class="nc">SubstituteUnresolvedOrdinals</span><span class="o">(</span><span class="n">conf</span><span class="o">)),</span> <span class="c1">// 替换 order by、group by 序号</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Resolution&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">ResolveTableValuedFunctions</span> <span class="o">::</span> <span class="c1">// 数据表函数，range</span>
+      <span class="nc">ResolveAlterTable</span> <span class="o">::</span> <span class="c1">// ALTER TABLE v2</span>
+      <span class="nc">ResolveTables</span> <span class="o">::</span> <span class="c1">// Table v2，表</span>
+      <span class="nc">ResolveRelations</span> <span class="o">::</span> <span class="c1">// Table v1</span>
+      <span class="nc">ResolveReferences</span> <span class="o">::</span> <span class="c1">// Reference 列</span>
+      <span class="nc">ResolveCreateNamedStruct</span> <span class="o">::</span> <span class="c1">// named_struct</span>
+      <span class="nc">ResolveDeserializer</span> <span class="o">::</span> <span class="c1">// Deserializer 反序列化</span>
+      <span class="nc">ResolveNewInstance</span> <span class="o">::</span> <span class="c1">// 构造实例</span>
+      <span class="nc">ResolveUpCast</span> <span class="o">::</span> <span class="c1">// 类型转换</span>
+      <span class="nc">ResolveGroupingAnalytics</span> <span class="o">::</span> <span class="c1">// 多维分析，GroupingSets/Cube/Rollup</span>
+      <span class="nc">ResolvePivot</span> <span class="o">::</span> <span class="c1">// 透视，行列转换</span>
+      <span class="nc">ResolveOrdinalInOrderByAndGroupBy</span> <span class="o">::</span> <span class="c1">// 序号，order/sort by、group by</span>
+      <span class="nc">ResolveAggAliasInGroupBy</span> <span class="o">::</span> <span class="c1">// 聚合中的别名，group by、grouping sets</span>
+      <span class="nc">ResolveMissingReferences</span> <span class="o">::</span> <span class="c1">// 补充缺失的 Reference，sort by、having</span>
+      <span class="nc">ExtractGenerator</span> <span class="o">::</span> <span class="c1">// 提取生成器，explode</span>
+      <span class="nc">ResolveGenerate</span> <span class="o">::</span> <span class="c1">// 生成器</span>
+      <span class="nc">ResolveFunctions</span> <span class="o">::</span> <span class="c1">// Function，函数</span>
+      <span class="nc">ResolveAliases</span> <span class="o">::</span> <span class="c1">// Alias，别名</span>
+      <span class="nc">ResolveSubquery</span> <span class="o">::</span> <span class="c1">// 子查询</span>
+      <span class="nc">ResolveSubqueryColumnAliases</span> <span class="o">::</span> <span class="c1">// 子查询别名</span>
+      <span class="nc">ResolveWindowOrder</span> <span class="o">::</span> <span class="c1">// Window Order</span>
+      <span class="nc">ResolveWindowFrame</span> <span class="o">::</span> <span class="c1">// Window Frame</span>
+      <span class="nc">ResolveNaturalAndUsingJoin</span> <span class="o">::</span> <span class="c1">// 使用 Join 替换 Natural 形式 </span>
+      <span class="nc">ResolveOutputRelation</span> <span class="o">::</span> <span class="c1">// 处理 输出数据和表的差异</span>
+      <span class="nc">ExtractWindowExpressions</span> <span class="o">::</span> <span class="c1">// 提取 Window</span>
+      <span class="nc">GlobalAggregates</span> <span class="o">::</span> <span class="c1">// 全局聚合</span>
+      <span class="nc">ResolveAggregateFunctions</span> <span class="o">::</span> <span class="c1">// 聚合函数</span>
+      <span class="nc">TimeWindowing</span> <span class="o">::</span> <span class="c1">// 滑动时间窗口</span>
+      <span class="nc">ResolveInlineTables</span><span class="o">(</span><span class="n">conf</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 内联表 VALUES()</span>
+      <span class="nc">ResolveHigherOrderFunctions</span><span class="o">(</span><span class="n">catalog</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// higher order function，lambda function</span>
+      <span class="nc">ResolveLambdaVariables</span><span class="o">(</span><span class="n">conf</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// lambda function 参数</span>
+      <span class="nc">ResolveTimeZone</span><span class="o">(</span><span class="n">conf</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// TimeZone</span>
+      <span class="nc">ResolveRandomSeed</span> <span class="o">::</span> <span class="c1">// 随机数生成</span>
+      <span class="nc">TypeCoercion</span><span class="o">.</span><span class="n">typeCoercionRules</span><span class="o">(</span><span class="n">conf</span><span class="o">)</span> <span class="o">++</span> <span class="c1">// 强制类型转换</span>
+      <span class="n">extendedResolutionRules</span> <span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">),</span> <span class="c1">// 扩展规则</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Post-Hoc Resolution&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span> <span class="n">postHocResolutionRules</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">),</span> <span class="c1">// 扩展规则</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Nondeterministic&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">PullOutNondeterministic</span><span class="o">),</span> <span class="c1">// 非确定性表达式</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;UDF&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">HandleNullInputsForUDF</span><span class="o">),</span> <span class="c1">// 处理为 null 的输入</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;UpdateNullability&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">UpdateAttributeNullability</span><span class="o">),</span> <span class="c1">// 更新可以为空属性</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Subquery&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">UpdateOuterReferences</span><span class="o">),</span> <span class="c1">// 处理子查询的外部引用</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Cleanup&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">CleanupAliases</span><span class="o">)</span> <span class="c1">// 清理没必要的别名</span>
+  <span class="o">)</span>
+</pre></div>
+
+<h2 id="optimizer">Optimizer<a class="headerlink" href="#optimizer" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>  <span class="cm">/**</span>
+<span class="cm">   * Defines the default rule batches in the Optimizer.</span>
+<span class="cm">   *</span>
+<span class="cm">   * Implementations of this class should override this method, and [[nonExcludableRules]] if</span>
+<span class="cm">   * necessary, instead of [[batches]]. The rule batches that eventually run in the Optimizer,</span>
+<span class="cm">   * i.e., returned by [[batches]], will be (defaultBatches - (excludedRules - nonExcludableRules)).</span>
+<span class="cm">   */</span>
+  <span class="k">def</span> <span class="n">defaultBatches</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Batch</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">operatorOptimizationRuleSet</span> <span class="k">=</span>
+      <span class="nc">Seq</span><span class="o">(</span>
+        <span class="c1">// Operator push down</span>
+        <span class="nc">PushProjectionThroughUnion</span><span class="o">,</span> <span class="c1">// 对于全部是确定性 Project 进行下推</span>
+        <span class="nc">ReorderJoin</span><span class="o">,</span> <span class="c1">// 根据 Join 关联条件，进行顺序重排</span>
+        <span class="nc">EliminateOuterJoin</span><span class="o">,</span> <span class="c1">// 消除非空约束的 Outer Join</span>
+        <span class="nc">PushDownPredicates</span><span class="o">,</span> <span class="c1">// 谓词下推</span>
+        <span class="nc">PushDownLeftSemiAntiJoin</span><span class="o">,</span> <span class="c1">// Project、Window、Union、Aggregate、PushPredicateThroughNonJoin 场景下，下推 LeftSemi/LeftAnti</span>
+        <span class="nc">PushLeftSemiLeftAntiThroughJoin</span><span class="o">,</span> <span class="c1">// Join 场景下，下推 LeftSemi/LeftAnti</span>
+        <span class="nc">LimitPushDown</span><span class="o">,</span> <span class="c1">// Limit 下推</span>
+        <span class="nc">ColumnPruning</span><span class="o">,</span> <span class="c1">// 列裁剪</span>
+        <span class="nc">InferFiltersFromConstraints</span><span class="o">,</span> <span class="c1">// 根据约束推断 Filter 信息</span>
+        <span class="c1">// Operator combine</span>
+        <span class="nc">CollapseRepartition</span><span class="o">,</span> <span class="c1">// 合并 Repartition</span>
+        <span class="nc">CollapseProject</span><span class="o">,</span> <span class="c1">// 合并 Project</span>
+        <span class="nc">CollapseWindow</span><span class="o">,</span> <span class="c1">// 合并 Window（相同的分区及排序）</span>
+        <span class="nc">CombineFilters</span><span class="o">,</span> <span class="c1">// 合并 Filter</span>
+        <span class="nc">CombineLimits</span><span class="o">,</span> <span class="c1">// 合并 Limit</span>
+        <span class="nc">CombineUnions</span><span class="o">,</span> <span class="c1">// 合并 Union</span>
+        <span class="c1">// Constant folding and strength reduction</span>
+        <span class="nc">TransposeWindow</span><span class="o">,</span> <span class="c1">// 转置 Window，优化计算</span>
+        <span class="nc">NullPropagation</span><span class="o">,</span> <span class="c1">// Null 传递</span>
+        <span class="nc">ConstantPropagation</span><span class="o">,</span> <span class="c1">// 常量传递</span>
+        <span class="nc">FoldablePropagation</span><span class="o">,</span> <span class="c1">// 可折叠字段、属性传播</span>
+        <span class="nc">OptimizeIn</span><span class="o">,</span> <span class="c1">// 优化 In，空处理、重复处理</span>
+        <span class="nc">ConstantFolding</span><span class="o">,</span> <span class="c1">// 常量折叠</span>
+        <span class="nc">ReorderAssociativeOperator</span><span class="o">,</span> <span class="c1">// 排序与折叠变量</span>
+        <span class="nc">LikeSimplification</span><span class="o">,</span> <span class="c1">// 优化 Like 对应的正则</span>
+        <span class="nc">BooleanSimplification</span><span class="o">,</span> <span class="c1">// 简化 Boolean 表达式</span>
+        <span class="nc">SimplifyConditionals</span><span class="o">,</span> <span class="c1">// 简化条件表达式，if/case</span>
+        <span class="nc">RemoveDispensableExpressions</span><span class="o">,</span> <span class="c1">// 移除不必要的节点，positive</span>
+        <span class="nc">SimplifyBinaryComparison</span><span class="o">,</span> <span class="c1">// 优化比较表达式为 Boolean Literal</span>
+        <span class="nc">ReplaceNullWithFalseInPredicate</span><span class="o">,</span> <span class="c1">// 优化 Null 场景 Literal</span>
+        <span class="nc">PruneFilters</span><span class="o">,</span> <span class="c1">// 裁剪明确的过滤条件</span>
+        <span class="nc">EliminateSorts</span><span class="o">,</span> <span class="c1">// 消除 Sort，无关或重复</span>
+        <span class="nc">SimplifyCasts</span><span class="o">,</span> <span class="c1">// 简化 Cast，类型匹配</span>
+        <span class="nc">SimplifyCaseConversionExpressions</span><span class="o">,</span> <span class="c1">// 简化 叠加的大小写转换</span>
+        <span class="nc">RewriteCorrelatedScalarSubquery</span><span class="o">,</span> <span class="c1">// 子查询改写为 Join</span>
+        <span class="nc">EliminateSerialization</span><span class="o">,</span> <span class="c1">// 消除 序列化</span>
+        <span class="nc">RemoveRedundantAliases</span><span class="o">,</span> <span class="c1">// 删除冗余的别名</span>
+        <span class="nc">RemoveNoopOperators</span><span class="o">,</span> <span class="c1">// 删除没有操作的操作符</span>
+        <span class="nc">SimplifyExtractValueOps</span><span class="o">,</span> <span class="c1">// 简化符合类型操作符</span>
+        <span class="nc">CombineConcats</span><span class="o">)</span> <span class="o">++</span> <span class="c1">// 合并 Concat 表达式</span>
+        <span class="n">extendedOperatorOptimizationRules</span> <span class="c1">// 扩展规则</span>
+
+    <span class="k">val</span> <span class="n">operatorOptimizationBatch</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Batch</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">rulesWithoutInferFiltersFromConstraints</span> <span class="k">=</span>
+        <span class="n">operatorOptimizationRuleSet</span><span class="o">.</span><span class="n">filterNot</span><span class="o">(</span><span class="k">_</span> <span class="o">==</span> <span class="nc">InferFiltersFromConstraints</span><span class="o">)</span>
+      <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Operator Optimization before Inferring Filters&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+        <span class="n">rulesWithoutInferFiltersFromConstraints</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span> <span class="o">::</span>
+      <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Infer Filters&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+        <span class="nc">InferFiltersFromConstraints</span><span class="o">)</span> <span class="o">::</span>
+      <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Operator Optimization after Inferring Filters&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+        <span class="n">rulesWithoutInferFiltersFromConstraints</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span>
+    <span class="o">}</span>
+
+    <span class="o">(</span><span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Eliminate Distinct&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span> <span class="nc">EliminateDistinct</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 消除聚合中冗余的 Distinct</span>
+    <span class="c1">// Technically some of the rules in Finish Analysis are not optimizer rules and belong more</span>
+    <span class="c1">// in the analyzer, because they are needed for correctness (e.g. ComputeCurrentTime).</span>
+    <span class="c1">// However, because we also use the analyzer to canonicalized queries (for view definition),</span>
+    <span class="c1">// we do not eliminate subqueries or compute current time in the analyzer.</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Finish Analysis&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">EliminateResolvedHint</span><span class="o">,</span> <span class="c1">// 通过 Join 改写 Hint</span>
+      <span class="nc">EliminateSubqueryAliases</span><span class="o">,</span> <span class="c1">// 消除 子查询别名</span>
+      <span class="nc">EliminateView</span><span class="o">,</span> <span class="c1">// 消除 视图</span>
+      <span class="nc">ReplaceExpressions</span><span class="o">,</span> <span class="c1">// 替换、改写 表达式</span>
+      <span class="nc">ComputeCurrentTime</span><span class="o">,</span> <span class="c1">// 计算当前日期或时间</span>
+      <span class="nc">GetCurrentDatabase</span><span class="o">(</span><span class="n">sessionCatalog</span><span class="o">),</span> <span class="c1">// 替换当前的数据库</span>
+      <span class="nc">RewriteDistinctAggregates</span><span class="o">,</span> <span class="c1">// Distinct 优化改写</span>
+      <span class="nc">ReplaceDeduplicateWithAggregate</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 通过聚合优化删除重复数据算子</span>
+    <span class="c1">//////////////////////////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// Optimizer rules start here</span>
+    <span class="c1">//////////////////////////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// - Do the first call of CombineUnions before starting the major Optimizer rules,</span>
+    <span class="c1">//   since it can reduce the number of iteration and the other rules could add/move</span>
+    <span class="c1">//   extra operators between two adjacent Union operators.</span>
+    <span class="c1">// - Call CombineUnions again in Batch(&quot;Operator Optimizations&quot;),</span>
+    <span class="c1">//   since the other rules might make two separate Unions operators adjacent.</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Union&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">CombineUnions</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 合并相邻的 Union</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;OptimizeLimitZero&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">OptimizeLimitZero</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 优化 limit 0</span>
+    <span class="c1">// Run this once earlier. This might simplify the plan and reduce cost of optimizer.</span>
+    <span class="c1">// For example, a query such as Filter(LocalRelation) would go through all the heavy</span>
+    <span class="c1">// optimizer rules that are triggered when there is a filter</span>
+    <span class="c1">// (e.g. InferFiltersFromConstraints). If we run this batch earlier, the query becomes just</span>
+    <span class="c1">// LocalRelation and does not trigger many rules.</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;LocalRelation early&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">ConvertToLocalRelation</span><span class="o">,</span> <span class="c1">// 优化 LocalRelation</span>
+      <span class="nc">PropagateEmptyRelation</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 优化 EmptyRelation</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Pullup Correlated Expressions&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">PullupCorrelatedPredicates</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 处理引用外部谓词</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Subquery&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">OptimizeSubqueries</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 优化 子查询，去除不必要排序</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Replace Operators&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">RewriteExceptAll</span><span class="o">,</span> <span class="c1">// 重写 Except All</span>
+      <span class="nc">RewriteIntersectAll</span><span class="o">,</span> <span class="c1">// 重写 Intersect All</span>
+      <span class="nc">ReplaceIntersectWithSemiJoin</span><span class="o">,</span> <span class="c1">// 使用 Semi Join，重写 Intersect</span>
+      <span class="nc">ReplaceExceptWithFilter</span><span class="o">,</span> <span class="c1">// 使用 Filter，重写 Except</span>
+      <span class="nc">ReplaceExceptWithAntiJoin</span><span class="o">,</span> <span class="c1">// 使用 Anti Join，重写 Except</span>
+      <span class="nc">ReplaceDistinctWithAggregate</span><span class="o">)</span> <span class="o">::</span> <span class="c1">// 使用 Aggregate，重写 Distinct</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Aggregate&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">RemoveLiteralFromGroupExpressions</span><span class="o">,</span> <span class="c1">// 删除聚合表达式的字面量</span>
+      <span class="nc">RemoveRepetitionFromGroupExpressions</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span> <span class="o">++</span> <span class="c1">// 删除聚合表达式的重复信息</span>
+    <span class="n">operatorOptimizationBatch</span><span class="o">)</span> <span class="o">:+</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Join Reorder&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">CostBasedJoinReorder</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 基于损失的 Join 重排</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Remove Redundant Sorts&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">RemoveRedundantSorts</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 删除冗余的排序</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Decimal Optimizations&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">DecimalAggregates</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// Decimal 类型聚合优化</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Object Expressions Optimization&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">EliminateMapObjects</span><span class="o">,</span> <span class="c1">// 消除 MapObject</span>
+      <span class="nc">CombineTypedFilters</span><span class="o">,</span> <span class="c1">// 合并相邻的类型过滤</span>
+      <span class="nc">ObjectSerializerPruning</span><span class="o">,</span> <span class="c1">// 裁剪不必要的序列化</span>
+      <span class="nc">ReassignLambdaVariableID</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 重新分类 LambdaVariable ID，利于 codegen 优化</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;LocalRelation&quot;</span><span class="o">,</span> <span class="n">fixedPoint</span><span class="o">,</span>
+      <span class="nc">ConvertToLocalRelation</span><span class="o">,</span> <span class="c1">// 优化 LocalRelation</span>
+      <span class="nc">PropagateEmptyRelation</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 优化 EmptyRelation</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Extract PythonUDF From JoinCondition&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">PullOutPythonUDFInJoinCondition</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 标识 Join 中的 PythonUDF</span>
+    <span class="c1">// The following batch should be executed after batch &quot;Join Reorder&quot; &quot;LocalRelation&quot; and</span>
+    <span class="c1">// &quot;Extract PythonUDF From JoinCondition&quot;.</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;Check Cartesian Products&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">CheckCartesianProducts</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 检测 笛卡尔积 约束条件</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;RewriteSubquery&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span>
+      <span class="nc">RewritePredicateSubquery</span><span class="o">,</span> <span class="c1">// 重写 子查询，EXISTS/NOT EXISTS、IN/NOT IN</span>
+      <span class="nc">ColumnPruning</span><span class="o">,</span> <span class="c1">// 裁剪列</span>
+      <span class="nc">CollapseProject</span><span class="o">,</span> <span class="c1">// 合并投影</span>
+      <span class="nc">RemoveNoopOperators</span><span class="o">)</span> <span class="o">:+</span> <span class="c1">// 删除无用的操作符</span>
+    <span class="c1">// This batch must be executed after the `RewriteSubquery` batch, which creates joins.</span>
+    <span class="nc">Batch</span><span class="o">(</span><span class="s">&quot;NormalizeFloatingNumbers&quot;</span><span class="o">,</span> <span class="nc">Once</span><span class="o">,</span> <span class="nc">NormalizeFloatingNumbers</span><span class="o">)</span> <span class="c1">// 规范 Float 类型数值</span>
+  <span class="o">}</span>
+</pre></div>
+
+<h2 id="sparkplan">SparkPlan<a class="headerlink" href="#sparkplan" title="Permanent link">&para;</a></h2>
+<h2 id="sparkstrategy">SparkStrategy<a class="headerlink" href="#sparkstrategy" title="Permanent link">&para;</a></h2>
+<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.iteblog.com/archives/2561.html">一条 SQL 在 Apache Spark 之旅（上）</a></li>
+<li><a href="https://www.iteblog.com/archives/2562.html">一条 SQL 在 Apache Spark 之旅（中）</a></li>
+<li><a href="https://www.iteblog.com/archives/2563.html">一条 SQL 在 Apache Spark 之旅（下）</a></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2013 - <span id="cyear">2013</span> HyperJ <script type="text/javascript">document.getElementById("cyear").innerText=new Date().getFullYear();document.write(unescape("%3Cdiv id='cnzz_stat_icon_1275779234'%3E%3C/div%3E%3Cscript src='https://s5.cnzz.com/z_stat.php%3Fid%3D1275779234%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://hyperj.net" class="md-footer-social__link fa fa-h-square"></a>
+    
+      <a href="https://github.com/hyperj" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://www.linkedin.com/in/hyperj" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+    
+  </body>
+</html>
