@@ -2,18 +2,6 @@
 
 Mark. 20190613 - HyperJ
 
-## 2019 
-
-| Month | 01 | 02 | 03 | 04 | 05 |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| October | -- | -- | -- | -- | -- |
-| September | [Week 9-1](week/2019/0901.md) | [Week 9-2](week/2019/0908.md) | [Week 9-3](week/2019/0915.md) | [Week 9-4](week/2019/0922.md) | [Week 9-5](week/2019/0929.md) |
-| August | [Week 8-1](week/2019/0804.md) | [Week 8-2](week/2019/0811.md) | [Week 8-3](week/2019/0818.md) | [Week 8-4](week/2019/0825.md) | -- |
-| July | [Week 7-1](week/2019/0707.md) | [Week 7-2](week/2019/0714.md) | [Week 7-3](week/2019/0721.md) | [Week 7-4](week/2019/0728.md) | -- |
-| June | -- | [Week 6-2](week/2019/0609.md) | [Week 6-3](week/2019/0616.md) | [Week 6-4](week/2019/0623.md) | [Week 6-5](week/2019/0630.md) |
-
-### Share
-
 ## Arts
 
 ### 发起ARTS的原因
@@ -30,7 +18,7 @@ Mark. 20190613 - HyperJ
 
 其中，我还引用了一张学习金字塔
 
-![学习金字塔](./asset/image/学习金字塔.jpeg)
+![学习金字塔](docs/asset/image/学习金字塔.jpeg)
 
 我们可以看到，你听别人讲，或是自己看书，或是让别人演示给你，这些都不能让你真正获得学习能力，因为你是在被别人灌输，在听别人说。
 

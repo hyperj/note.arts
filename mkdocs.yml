@@ -1,0 +1,91 @@
+# Project information
+site_name: ARTS 打卡记录
+site_description: ARTS 打卡记录
+site_author: HyperJ
+site_url: https://hyperj.net/note.arts
+
+# Repository
+repo_name: hyperj/note.arts
+repo_url: https://github.com/hyperj/note.arts
+edit_uri: blob/master/docs
+
+# Copyright
+copyright: Copyright &copy; 2013 - <span id="cyear">2013</span> HyperJ <script type="text/javascript">document.getElementById("cyear").innerText=new Date().getFullYear();document.write(unescape("%3Cdiv id='cnzz_stat_icon_1275779234'%3E%3C/div%3E%3Cscript src='https://s5.cnzz.com/z_stat.php%3Fid%3D1275779234%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+
+# Configuration
+theme:
+  name: material
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: true
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  feature:
+    tabs: true
+  palette:
+    primary: white
+    accent: amber
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: /assets/images/hyperj.ico
+  logo: /assets/images/hyperj.png
+
+# Customization
+extra:
+  social:
+    - type: h-square
+      link: https://hyperj.net
+    - type: github
+      link: https://github.com/hyperj
+    - type: linkedin
+      link: https://www.linkedin.com/in/hyperj
+
+extra_css:
+  - /assets/css/mkdocs/material.css
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Page tree
+nav:
+  - 首页: index.md
+  - Share:
+    - 2019: share/2019.md
+  - Week:
+    - 2019: week/2019.md
+
+# Analytics
+
+
